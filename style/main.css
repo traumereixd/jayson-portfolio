@@ -1,6 +1,4 @@
-body {
-  overflow-x: hidden;
-}
+/* Basic Reset & Font Setup */
 * {
   margin: 0;
   padding: 0;
@@ -10,15 +8,40 @@ body {
 }
 
 body {
-  background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%);
-  color: #f8fafc;
+  overflow-x: hidden; /* Prevent horizontal scroll from animations */
+  background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%); /* Original background */
+  color: #f8fafc; /* Light text for dark background */
   line-height: 1.6;
 }
 
-.resume-button {
-  min-height: 44px; /* recommended for finger taps */
+/* Typography & Links */
+h1, h2, h3 {
+  font-family: 'Orbitron', sans-serif; /* Use Orbitron for headings */
 }
 
+h2 {
+  font-size: 2rem;
+  color: #38bdf8; /* Accent color */
+  margin-bottom: 1.5rem; /* Increased space below headings */
+  border-bottom: 2px solid #334155;
+  padding-bottom: 0.5rem;
+  display: flex; /* For Lucide icons */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+a {
+  color: #38bdf8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #0ea5e9; /* Slightly darker accent on hover */
+  text-decoration: underline;
+}
+
+/* Navigation Bar */
 nav {
   background: #0f172a;
   position: sticky;
@@ -35,223 +58,168 @@ nav a {
   color: #f8fafc;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
+  padding: 0.5rem 1rem; /* Added padding for better click area */
+  border-radius: 5px;
 }
 
-nav a:hover {
+nav a:hover, nav a:focus { /* Added focus state for accessibility */
   color: #38bdf8;
+  background-color: rgba(56, 189, 248, 0.1); /* Subtle background on hover/focus */
 }
 
-header {
-  padding: 6rem 2rem 4rem;
+/* Main Layout Containers */
+.container {
+  max-width: 900px; /* Consistent content width */
+  margin: 0 auto; /* Center content */
+  padding: 2rem;
   text-align: center;
-  animation: fadeIn 1s ease;
+}
+
+/* Glassmorphism Base Styles */
+.glass-section {
+    background: rgba(255, 255, 255, 0.08); /* Slightly more transparent */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 30px; /* Consistent padding for sections */
+    margin: 40px auto; /* Vertical spacing and centering */
+    max-width: 1000px; /* Max width for sections */
+    box-sizing: border-box; /* Include padding in max-width */
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05); /* Slightly more transparent than section */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px); /* Slightly less blur for cards */
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow */
+  padding: 1.5rem; /* Good padding inside cards */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative; /* For glow bubble */
+  overflow: hidden; /* To contain glow bubble */
+}
+
+.glass-card:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px); /* Subtle lift effect */
+}
+
+/* Profile Picture in Header */
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 20px #38bdf8; /* Stronger glow */
+  transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.08); /* More pronounced hover effect */
+}
+
+/* Header Specifics */
+header.glass-section { /* Apply glass-section to header */
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05); /* Slightly different transparency for header */
 }
 
 header h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  color: #38bdf8;
+  font-size: 3.5rem; /* Larger hero text */
+  font-weight: 700;
+  color: #f8fafc; /* White text for neon effect */
   margin-bottom: 1rem;
 }
 
 header p {
-  font-size: 1.25rem;
-  color: #94a3b8;
+  font-size: 1.35rem; /* Slightly larger subtitle */
+  color: #cbd5e1;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-  animation: fadeIn 1s ease;
-}
-/* Glass card style */
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  margin-top: 2rem;
-  
-}
-
-.glass-card {
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease;
-}
-
-
-.glow-bubble {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 300px; /* Increased size for consistency */
-  height: 300px;
-  background: radial-gradient(circle, #38bdf8aa, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-}
-/* CSS for Glassmorphism */
-body {
-    /* Crucial: Glassmorphism needs a background to blur. Use an image or gradient! */
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Example gradient */
-    background-size: cover;
-    background-attachment: fixed; /* Keeps background fixed during scroll */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
-    color: #e0e0e0; /* Light text for dark background */
-}
-
-.glass-card, .glass-section {
-    background: rgba(255, 255, 255, 0.15); /* Semi-transparent white background */
-    border-radius: 16px; /* Rounded corners */
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Subtle shadow */
-    backdrop-filter: blur(10px); /* The magic! Adjust blur value */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.18); /* Light border */
-    padding: 20px;
-    margin: 20px auto; /* Center it */
-    max-width: 90%; /* Responsive width */
-}
-
-/* Apply this to your main section containers, e.g., .glass-section */
-.glass-section {
-    /* ... existing glassmorphism styles ... */
-    max-width: 1000px; /* Or a width that fits your design */
-    margin: 40px auto; /* Centers the block horizontally and adds vertical spacing */
-    padding: 30px; /* Adjust internal padding */
-    box-sizing: border-box; /* Ensures padding doesn't add to max-width */
-}
-
-.glass-card {
-    width: 300px; /* Example width for skill/project cards */
-    display: inline-block; /* For side-by-side cards */
-    vertical-align: top;
-    margin: 10px;
-}
-
-/* Glow button effect */
-.resume-button:hover {
-  background: #0ea5e9;
-  box-shadow: 0 0 15px #0ea5e9;
-}
-
-/* Icon + Title style */
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Profile pic hover pop */
-.profile-pic:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-}
-
-section {
-  margin: 4rem 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-h2 {
-  font-size: 2rem;
-  color: #38bdf8;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #334155;
-  padding-bottom: 0.5rem;
-}
-
-ul li {
-  margin-bottom: 0.75rem;
-}
-
-.resume-button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: #38bdf8;
-  color: #0f172a;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-/* CSS for Neon Glow */
+/* Neon Glow Effects */
 .neon-text {
-    color: #fff; /* Base text color */
+    color: #fff;
     text-shadow:
-        0 0 5px #00eaff, /* Light inner glow */
-        0 0 10px #00eaff,
-        0 0 20px #00eaff,
-        0 0 40px #00c8ff, /* Stronger outer glow */
-        0 0 80px #00c8ff;
-    font-family: 'Orbitron', sans-serif; /* Good for futuristic text */
-    /* Add animation for subtle pulsing effect */
-    animation: neon-flicker 1.5s ease-in-out infinite alternate;
+        0 0 5px #00eaff,
+        0 0 15px #00eaff,
+        0 0 30px #00c8ff,
+        0 0 60px #00c8ff,
+        0 0 100px #00c8ff;
+    animation: neon-flicker 1.8s ease-in-out infinite alternate; /* Slower flicker */
 }
 
 .neon-button {
     background: none;
-    border: 2px solid #00eaff; /* Neon border */
+    border: 2px solid #00eaff;
     color: #fff;
     padding: 12px 25px;
     font-size: 1.1em;
     border-radius: 8px;
     cursor: pointer;
     box-shadow:
-        0 0 5px #00eaff,
-        0 0 10px #00eaff,
-        0 0 20px #00eaff;
+        0 0 8px #00eaff,
+        0 0 25px #00eaff; /* More pronounced initial glow */
     transition: all 0.3s ease;
+    margin-top: 2rem; /* Space below header text */
+    display: inline-block; /* For the link within */
 }
 
-/* CSS for Project Section and Cards */
+.neon-button a { /* Style the link inside the button */
+    color: inherit; /* Inherit color from button */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.neon-button:hover {
+    background: #00eaff;
+    color: #000;
+    box-shadow:
+        0 0 15px #00eaff,
+        0 0 60px #00eaff,
+        0 0 120px #00eaff; /* Brighter glow on hover */
+}
+
+/* Keyframes for subtle neon flicker */
+@keyframes neon-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.92; } /* Even subtler flicker */
+}
+
+/* Project Section & Cards */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     padding: 20px;
+    justify-content: center; /* Center cards if they don't fill the row */
 }
 
 .project-card {
     text-align: center;
-    padding: 25px;
-    display: flex; /* Use flexbox for internal layout */
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes buttons to bottom */
+    justify-content: space-between;
+    padding: 25px; /* Consistent padding */
 }
 
 .project-card img {
     max-width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Slightly rounded images */
+    height: auto;
+    border-radius: 8px;
     margin-bottom: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle image border */
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .project-card h3 {
     color: #fff;
     margin-bottom: 10px;
+    font-size: 1.4em;
 }
 
 .project-card .tech-stack {
@@ -263,62 +231,79 @@ ul li {
 .project-card p {
     font-size: 0.95em;
     line-height: 1.5;
-    flex-grow: 1; /* Allows description to take up available space */
+    flex-grow: 1;
     margin-bottom: 20px;
 }
 
 .project-links {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Space between buttons */
-    margin-top: auto; /* Push links to the bottom of the card */
+    gap: 15px;
+    margin-top: auto;
 }
 
 .project-button {
     text-decoration: none;
-    display: inline-block; /* Ensure padding and margin work */
+    display: inline-block;
+    min-width: 120px; /* Ensure buttons have minimum width */
 }
 
-.neon-button:hover {
-    background: #00eaff; /* Fill with neon color on hover */
-    color: #000; /* Dark text on hover */
-    box-shadow:
-        0 0 10px #00eaff,
-        0 0 40px #00eaff,
-        0 0 80px #00eaff;
+/* Specific Grid Layouts for new glass-card items */
+.skills-grid, .education-grid, .experience-grid, .achievements-grid, .seminars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+    gap: 20px;
+    padding: 10px;
+    justify-content: center;
 }
 
-/* Keyframes for subtle neon flicker */
-@keyframes neon-flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.9; } /* Subtle flicker */
+.skill-item, .education-item, .experience-item, .achievement-item, .seminar-item {
+    min-height: 120px; /* Ensure a consistent minimum height for cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* Inherits .glass-card styles */
+}
+.skill-item h3, .education-item h3, .experience-item h3, .achievement-item h3, .seminar-item h3 {
+    margin-bottom: 0.5em; /* Space between title and paragraph in these cards */
+}
+.skill-item p, .education-item p, .experience-item p, .achievement-item p, .seminar-item p {
+    font-size: 0.9em;
+    color: #cbd5e1;
 }
 
-.resume-button:hover {
-  background: #0ea5e9;
-}
-/* CSS for initial state (hidden) and animation */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(50px); /* Start slightly below */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+/* General Section Styles (for AOS integration) */
+section {
+  margin: 4rem auto; /* Consistent top/bottom margin, and auto for centering */
+  opacity: 0;
+  transform: translateY(30px); /* Slightly less vertical initial transform */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0); /* Move to original position */
+section.is-visible { /* Class added by IntersectionObserver */
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* CSS for Contact Form */
+/* Contact Form Specifics */
 .contact-form {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 30px auto 0; /* Space below contact details, center form */
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: left; /* Align form labels/inputs to left */
 }
 
 .contact-form .form-group {
     margin-bottom: 15px;
-    text-align: left;
 }
 
 .contact-form label {
@@ -332,12 +317,12 @@ ul li {
 .contact-form input[type="email"],
 .contact-form textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* Increased padding for inputs */
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     border-radius: 5px;
-    box-sizing: border-box; /* Include padding in width */
+    box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -345,77 +330,98 @@ ul li {
 .contact-form input[type="email"]:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: #00eaff; /* Neon border on focus */
-    box-shadow: 0 0 8px rgba(0, 234, 255, 0.6); /* Neon shadow on focus */
+    border-color: #00eaff;
+    box-shadow: 0 0 8px rgba(0, 234, 255, 0.6);
 }
 
-/* Smooth scroll for anchor links */
-html {
-    scroll-behavior: smooth;
+.contact-form button.neon-button {
+    width: 100%; /* Make submit button full width */
+    margin-top: 20px;
+    text-align: center;
 }
 
+/* Footer */
 footer {
   background: #0f172a;
   text-align: center;
   padding: 2rem;
   font-size: 0.9rem;
   color: #94a3b8;
+  margin-top: 4rem; /* Space above footer */
 }
 
-a {
-  color: #38bdf8;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 600px) {
+/* Responsive Adjustments */
+@media (max-width: 768px) {
   header h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
-
   header p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
-
   nav {
     flex-wrap: wrap;
     gap: 1rem;
-    padding: 0.5rem;
+    padding: 0.8rem;
   }
-
   nav a {
-    font-size: 0.9rem;
-    padding: 0.5rem;
-  }
-
-  .container {
-    padding: 1rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  ul li {
     font-size: 0.95rem;
   }
-
-  .resume-button {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
+  .glass-section {
+    padding: 20px;
+    margin: 30px auto;
   }
-
-  .glass-card {
-    padding: 1.2rem;
+  .project-grid, .skills-grid, .education-grid, .experience-grid, .achievements-grid, .seminars-grid {
+    grid-template-columns: 1fr; /* Stack columns on small screens */
+    gap: 20px;
+  }
+  .project-card, .glass-card {
+    width: auto; /* Allow cards to take full width */
+    margin: 10px auto;
+  }
+  h2 {
+    font-size: 1.8rem;
   }
 }
 
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  header p {
+    font-size: 1rem;
+  }
+  nav {
+    gap: 0.5rem;
+  }
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .glass-section {
+    padding: 15px;
+    margin: 20px auto;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  .neon-button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+}
 
+/* Mouse Glow Bubble (from fade.js) */
+.glow-bubble {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 250px; /* Adjusted size */
+  height: 250px;
+  background: radial-gradient(circle, #38bdf8aa, transparent 70%); /* Accent color */
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.1s linear; /* Fast transform for smooth follow */
+  transform: translate(-50%, -50%);
+  z-index: 0; /* Behind content */
+}

@@ -1,16 +1,13 @@
-const sections = document.querySelectorAll("section");
-const reveal = () => {
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    const winHeight = window.innerHeight;
-    if (top < winHeight - 100) sec.classList.add("visible");
-  });
-};
-window.addEventListener("scroll", reveal);
-window.addEventListener("load", reveal);
-
+// This function handles the mouse glow bubble effect on glass cards
 document.querySelectorAll('.glass-card').forEach(card => {
-  const bubble = card.querySelector('.glow-bubble');
+  let bubble = card.querySelector('.glow-bubble');
+
+  // If bubble doesn't exist, create it and append it
+  if (!bubble) {
+    bubble = document.createElement('div');
+    bubble.classList.add('glow-bubble');
+    card.appendChild(bubble);
+  }
 
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
@@ -29,21 +26,23 @@ document.querySelectorAll('.glass-card').forEach(card => {
 
 // JavaScript for Intersection Observer (animate on scroll)
 document.addEventListener('DOMContentLoaded', () => {
+    // AOS (Animate On Scroll) is already handled by AOS.init()
+    // This Intersection Observer is for 'is-visible' class, complementing AOS if needed
+    // You can remove this block if AOS alone provides all desired scroll animations
+
     const observerOptions = {
         root: null, // viewport
         rootMargin: '0px',
-        threshold: 0.2 // Trigger when 20% of the element is visible
+        threshold: 0.1 // Trigger when 10% of the element is visible
     };
 
     const observerCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
-                // Optionally, stop observing once it's visible to prevent re-triggering
-                // observer.unobserve(entry.target);
+                // observer.unobserve(entry.target); // Uncomment to animate only once
             } else {
-                // Optional: remove class when not visible to allow re-animation on scroll up
-                entry.target.classList.remove('is-visible');
+                // entry.target.classList.remove('is-visible'); // Uncomment to re-animate on scroll up
             }
         });
     };
@@ -67,16 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.textContent = 'Sending...';
             formStatus.style.color = '#fff';
 
-            // In a real application, you'd send this data to a backend server
-            // using fetch() or XMLHttpRequest.
-            // For now, this is a simulated success/failure.
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            // Simulate API call
             try {
-                // Replace this with your actual backend endpoint (e.g., using Formspree, Netlify Forms, or your own serverless function)
+                // !!! IMPORTANT: REPLACE 'YOUR_FORM_SUBMISSION_ENDPOINT' with your actual endpoint !!!
+                // Examples: Formspree (https://formspree.io/), Netlify Forms, Vercel Forms, or your own backend.
                 const response = await fetch('YOUR_FORM_SUBMISSION_ENDPOINT', {
                     method: 'POST',
                     headers: {
