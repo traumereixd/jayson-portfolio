@@ -68,6 +68,27 @@ header p {
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   margin-top: 2rem;
+  
+}
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+
+.glow-bubble {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, #38bdf8aa, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+  z-index: 0;
 }
 
 /* Glow button effect */
