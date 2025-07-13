@@ -87,8 +87,10 @@ header p {
 
 .glow-bubble {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  left: 50%;
+  top: 50%;
+  width: 300px; /* Increased size for consistency */
+  height: 300px;
   background: radial-gradient(circle, #38bdf8aa, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
