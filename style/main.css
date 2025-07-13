@@ -97,6 +97,34 @@ header p {
   transform: translate(-50%, -50%);
   z-index: 0;
 }
+/* CSS for Glassmorphism */
+body {
+    /* Crucial: Glassmorphism needs a background to blur. Use an image or gradient! */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Example gradient */
+    background-size: cover;
+    background-attachment: fixed; /* Keeps background fixed during scroll */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    color: #e0e0e0; /* Light text for dark background */
+}
+
+.glass-card, .glass-section {
+    background: rgba(255, 255, 255, 0.15); /* Semi-transparent white background */
+    border-radius: 16px; /* Rounded corners */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Subtle shadow */
+    backdrop-filter: blur(10px); /* The magic! Adjust blur value */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Light border */
+    padding: 20px;
+    margin: 20px auto; /* Center it */
+    max-width: 90%; /* Responsive width */
+}
+
+.glass-card {
+    width: 300px; /* Example width for skill/project cards */
+    display: inline-block; /* For side-by-side cards */
+    vertical-align: top;
+    margin: 10px;
+}
 
 /* Glow button effect */
 .resume-button:hover {
@@ -153,9 +181,162 @@ ul li {
   font-weight: bold;
   transition: background 0.3s;
 }
+/* CSS for Neon Glow */
+.neon-text {
+    color: #fff; /* Base text color */
+    text-shadow:
+        0 0 5px #00eaff, /* Light inner glow */
+        0 0 10px #00eaff,
+        0 0 20px #00eaff,
+        0 0 40px #00c8ff, /* Stronger outer glow */
+        0 0 80px #00c8ff;
+    font-family: 'Orbitron', sans-serif; /* Good for futuristic text */
+    /* Add animation for subtle pulsing effect */
+    animation: neon-flicker 1.5s ease-in-out infinite alternate;
+}
+
+.neon-button {
+    background: none;
+    border: 2px solid #00eaff; /* Neon border */
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow:
+        0 0 5px #00eaff,
+        0 0 10px #00eaff,
+        0 0 20px #00eaff;
+    transition: all 0.3s ease;
+}
+
+/* CSS for Project Section and Cards */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    padding: 20px;
+}
+
+.project-card {
+    text-align: center;
+    padding: 25px;
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column;
+    justify-content: space-between; /* Pushes buttons to bottom */
+}
+
+.project-card img {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Slightly rounded images */
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle image border */
+}
+
+.project-card h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.project-card .tech-stack {
+    font-size: 0.9em;
+    color: #a0a0a0;
+    margin-bottom: 15px;
+}
+
+.project-card p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    flex-grow: 1; /* Allows description to take up available space */
+    margin-bottom: 20px;
+}
+
+.project-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
+    margin-top: auto; /* Push links to the bottom of the card */
+}
+
+.project-button {
+    text-decoration: none;
+    display: inline-block; /* Ensure padding and margin work */
+}
+
+.neon-button:hover {
+    background: #00eaff; /* Fill with neon color on hover */
+    color: #000; /* Dark text on hover */
+    box-shadow:
+        0 0 10px #00eaff,
+        0 0 40px #00eaff,
+        0 0 80px #00eaff;
+}
+
+/* Keyframes for subtle neon flicker */
+@keyframes neon-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; } /* Subtle flicker */
+}
 
 .resume-button:hover {
   background: #0ea5e9;
+}
+/* CSS for initial state (hidden) and animation */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px); /* Start slightly below */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0); /* Move to original position */
+}
+
+/* CSS for Contact Form */
+.contact-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #00eaff; /* Neon border on focus */
+    box-shadow: 0 0 8px rgba(0, 234, 255, 0.6); /* Neon shadow on focus */
+}
+
+/* Smooth scroll for anchor links */
+html {
+    scroll-behavior: smooth;
 }
 
 footer {

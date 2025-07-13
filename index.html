@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
   <meta charset="UTF-8" />
@@ -31,13 +31,41 @@
   <header id="home">
     <div class="container">
      <img src="images/profile.jpg" alt="Jayson Sahagun" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; box-shadow: 0 0 15px #38bdf8;">
-    <h1>Jayson G. Sahagun</h1>
+    <h1 class="neon-text">Jayson G. Sahagun</h1>
     <p>Aspiring Programmer | SHS Student</p>
-    <a class="resume-button" href="resume.pdf" download>Download Resume</a>
+    <button class="neon-button"><a class="resume-button" href="resume.pdf" download>Download Resume</a></button>
   </div>
 </header>
 
-  <section id="about">
+<section id="projects" class="glass-section animate-on-scroll">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+        <div class="project-card glass-card">
+            <img src="path/to/your-project-image1.jpg" alt="Project 1 Screenshot">
+            <h3>Project Title One</h3>
+            <p class="tech-stack">HTML | CSS | JavaScript | API</p>
+            <p>A brief, compelling description of your project's purpose and what it does.</p>
+            <div class="project-links">
+                <a href="https://your-demo-link.com" target="_blank" class="neon-button project-button">Live Demo</a>
+                <a href="https://github.com/your-repo-link" target="_blank" class="neon-button project-button">GitHub Repo</a>
+            </div>
+        </div>
+
+        <div class="project-card glass-card">
+            <img src="path/to/your-project-image2.jpg" alt="Project 2 Screenshot">
+            <h3>Project Title Two</h3>
+            <p class="tech-stack">Python | Django | PostgreSQL</p>
+            <p>Another brief, impactful description of your project.</p>
+            <div class="project-links">
+                <a href="https://your-demo-link2.com" target="_blank" class="neon-button project-button">Live Demo</a>
+                <a href="https://github.com/your-repo-link2" target="_blank" class="neon-button project-button">GitHub Repo</a>
+            </div>
+        </div>
+
+        </div>
+</section>
+
+  <section id="about" class="animate-on-scroll">
   <div class="container glass-card" data-aos="fade-up">
     <h2 class="section-title">
       <i data-lucide="user" style="width: 24px; height: 24px;"></i>
@@ -48,10 +76,10 @@
     </p>
     <div class="glow-bubble"></div>
   </div>
-  
 </section>
 
-  <section id="skills">
+  <section id="skills" class="animate-on-scroll">
+    <div class="glass-card">
     <div class="container glass-card" data-aos="fade-up">
       <h2>Skills</h2>
       <ul>
@@ -62,35 +90,37 @@
         <li>Adobe Lightroom Editing</li>
         <li>Photography</li>
         <li>Esports & Strategy</li>
+      </div>
       </ul>
       <div class="glow-bubble"></div>
     </div>
     <div class="glow-bubble"></div>
   </section>
 
-  <section id="education">
+  <section id="education" class="animate-on-scroll">
     <div class="container glass-card" data-aos="fade-up">
+        <section class="glass-section">
       <h2>Education</h2>
       <ul>
         <li><strong>Lyceum of Alabang</strong><br />Senior High School (2024–2026)</li>
         <li><strong>Pacita Complex National High School</strong><br />Junior High School (2019–2024)</li>
         <li><strong>Creative Star Montessorian School, Inc.</strong><br />Elementary (2013–2019)</li>
+        </section>
       </ul>
       <div class="glow-bubble"></div>
     </div>
     <div class="glow-bubble"></div>
   </section>
 
-  <section id="experience">
+  <section id="experience" class="animate-on-scroll">
     <div class="container glass-card" data-aos="fade-up">
       <h2>Experience</h2>
       <p><strong>SPES – City Hall of San Pedro</strong><br />Soft encoding tasks at the Department of Treasury for Real Property Tax records.</p>
       <div class="glow-bubble"></div>
     </div>
-    
   </section>
 
-  <section id="achievements">
+  <section id="achievements" class="animate-on-scroll">
     <div class="container glass-card" data-aos="fade-up">
       <h2>Achievements</h2>
       <ul>
@@ -106,7 +136,7 @@
     <div class="glow-bubble"></div>
   </section>
 
-  <section id="seminars">
+  <section id="seminars" class="animate-on-scroll">
     <div class="container glass-card" data-aos="fade-up">
       <h2>Seminars Attended</h2>
       <ul>
@@ -118,16 +148,34 @@
     <div class="glow-bubble"></div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="animate-on-scroll">
     <div class="container glass-card" data-aos="fade-up">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:jysnshgn@gmail.com">jysnshgn@gmail.com</a></p>
       <p> Phone:<a href="tel:+639687336476"> +63 9687336476</p>
         <div class="glow-bubble"></div>
     </div>
-    
   </section>
+  <section id="contact" class="glass-section animate-on-scroll">
+    <h2>Get in Touch</h2>
+    <form id="contactForm" class="contact-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="neon-button">Send Message</button>
+        <p id="formStatus" style="margin-top: 15px; color: #00eaff;"></p>
+    </form>
 
+</section>
   <footer>
     <div class="container">
       <p>&copy; 2025 Jayson G. Sahagun</p>
@@ -160,7 +208,12 @@
       window.scrollTo(0, parseInt(scrollY));
     }
   });
+
+  
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
