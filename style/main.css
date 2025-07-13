@@ -119,6 +119,15 @@ body {
     max-width: 90%; /* Responsive width */
 }
 
+/* Apply this to your main section containers, e.g., .glass-section */
+.glass-section {
+    /* ... existing glassmorphism styles ... */
+    max-width: 1000px; /* Or a width that fits your design */
+    margin: 40px auto; /* Centers the block horizontally and adds vertical spacing */
+    padding: 30px; /* Adjust internal padding */
+    box-sizing: border-box; /* Ensures padding doesn't add to max-width */
+}
+
 .glass-card {
     width: 300px; /* Example width for skill/project cards */
     display: inline-block; /* For side-by-side cards */
