@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%);
+  color: #f8fafc;
+  line-height: 1.6;
+}
+
+nav {
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+nav a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #38bdf8;
+}
+
+header {
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-bottom: 1rem;
+}
+
+header p {
+  font-size: 1.25rem;
+  color: #94a3b8;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  animation: fadeIn 1s ease;
+}
+/* Glass card style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin-top: 2rem;
+}
+
+/* Glow button effect */
+.resume-button:hover {
+  background: #0ea5e9;
+  box-shadow: 0 0 15px #0ea5e9;
+}
+
+/* Icon + Title style */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Profile pic hover pop */
+.profile-pic:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+section {
+  margin: 4rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h2 {
+  font-size: 2rem;
+  color: #38bdf8;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #334155;
+  padding-bottom: 0.5rem;
+}
+
+ul li {
+  margin-bottom: 0.75rem;
+}
+
+.resume-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #38bdf8;
+  color: #0f172a;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.resume-button:hover {
+  background: #0ea5e9;
+}
+
+footer {
+  background: #0f172a;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+

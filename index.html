@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Fonts and AOS for animation -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jayson G. Sahagun | Portfolio</title>
+  <link rel="stylesheet" href="style/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#experience">Experience</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#seminars">Seminars</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header id="home">
+    <div class="container">
+     <img src="images/profile.jpg" alt="Jayson Sahagun" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; box-shadow: 0 0 15px #38bdf8;">
+    <h1>Jayson G. Sahagun</h1>
+    <p>Aspiring Programmer | SHS Student</p>
+    <a class="resume-button" href="resume.pdf" download>Download Resume</a>
+  </div>
+</header>
+
+  <section id="about">
+  <div class="container glass-card" data-aos="fade-up">
+    <h2 class="section-title">
+      <i data-lucide="user" style="width: 24px; height: 24px;"></i>
+      About Me
+    </h2>
+    <p>
+      I'm a 17-year-old Grade 12 STEM student at Lyceum of Alabang with a strong passion for game development, robotics, and web tech. I love challenging myself with tech-related projects and I thrive under pressure.
+    </p>
+  </div>
+</section>
+
+
+  <section id="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <ul>
+        <li>Mid-level Programming</li>
+        <li>Robotics Enthusiast</li>
+        <li>Software Engineering Basics</li>
+        <li>Time Management</li>
+        <li>Adobe Lightroom Editing</li>
+        <li>Photography</li>
+        <li>Esports & Strategy</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container">
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Lyceum of Alabang</strong><br />Senior High School (2024–2026)</li>
+        <li><strong>Pacita Complex National High School</strong><br />Junior High School (2019–2024)</li>
+        <li><strong>Creative Star Montessorian School, Inc.</strong><br />Elementary (2013–2019)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      <p><strong>SPES – City Hall of San Pedro</strong><br />Soft encoding tasks at the Department of Treasury for Real Property Tax records.</p>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <div class="container">
+      <h2>Achievements</h2>
+      <ul>
+        <li>Consistent Honor Student (2013–2024)</li>
+        <li>Boy Scout Awardee</li>
+        <li>Ballroom Dance – 2nd Place (2016)</li>
+        <li>Buwan ng Wika – 3rd Place (2016)</li>
+        <li>Badminton Champion – 2015, 2016, 2017</li>
+        <li>Bible Preaching Champion – 2019</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="seminars">
+    <div class="container">
+      <h2>Seminars Attended</h2>
+      <ul>
+        <li>SPES Orientation – Calamba, June 25, 2024</li>
+        <li>Career Guidance – Pacita Astrodome, Jan 17, 2024</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:jysnshgn@gmail.com">jysnshgn@gmail.com</a></p>
+      <p> Phone:<a href="tel:+639687336476"> +63 9687336476</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Jayson G. Sahagun</p>
+    </div>
+  </footer>
+
+  <script>
+    window.history.scrollRestoration = 'manual';
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    };
+  </script>
+  <script src="js/fade.js"></script>
+
+  <script>
+  AOS.init();
+  
+</script>
+
+<script>
+  // Save scroll position before unloading
+  window.addEventListener("beforeunload", () => {
+    localStorage.setItem("scrollY", window.scrollY);
+  });
+
+  // Restore scroll position after loading
+  window.addEventListener("load", () => {
+    const scrollY = localStorage.getItem("scrollY");
+    if (scrollY !== null) {
+      window.scrollTo(0, parseInt(scrollY));
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
