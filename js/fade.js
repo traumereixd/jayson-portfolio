@@ -1,61 +1,50 @@
-// This function handles the mouse glow bubble effect on glass cards
-document.querySelectorAll('.glass-card').forEach(card => {
-  let bubble = card.querySelector('.glow-bubble');
-
-  // If bubble doesn't exist, create it and append it
-  if (!bubble) {
-    bubble = document.createElement('div');
-    bubble.classList.add('glow-bubble');
-    card.appendChild(bubble);
-  }
-
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    bubble.style.left = `${x}px`;
-    bubble.style.top = `${y}px`;
-    bubble.style.opacity = 1;
+// This section handles the fade-in effect for sections as you scroll.
+// However, since AOS is now implemented for "animate-on-scroll",
+// this part might be redundant if AOS handles all animations.
+// If you want to keep this custom fade, ensure it doesn't conflict with AOS.
+// For now, I'm keeping it as you had it previously.
+const sections = document.querySelectorAll("section");
+const reveal = () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    const winHeight = window.innerHeight;
+    if (top < winHeight - 100) sec.classList.add("visible");
   });
+};
+window.addEventListener("scroll", reveal);
+window.addEventListener("load", reveal);
 
-  card.addEventListener('mouseleave', () => {
-    bubble.style.opacity = 0;
-  });
-});
 
-// JavaScript for Intersection Observer (animate on scroll)
+// JavaScript for Glass Card Glow Bubble
+// This dynamically creates and positions the glow bubble effect on hover.
 document.addEventListener('DOMContentLoaded', () => {
-    // AOS (Animate On Scroll) is already handled by AOS.init()
-    // This Intersection Observer is for 'is-visible' class, complementing AOS if needed
-    // You can remove this block if AOS alone provides all desired scroll animations
+  document.querySelectorAll('.glass-card').forEach(card => {
+    // Create the glow-bubble element if it doesn't exist
+    let bubble = card.querySelector('.glow-bubble');
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.classList.add('glow-bubble');
+      card.appendChild(bubble);
+    }
 
-    const observerOptions = {
-        root: null, // viewport
-        rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the element is visible
-    };
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      // Calculate mouse position relative to the card
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                // observer.unobserve(entry.target); // Uncomment to animate only once
-            } else {
-                // entry.target.classList.remove('is-visible'); // Uncomment to re-animate on scroll up
-            }
-        });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    document.querySelectorAll('.animate-on-scroll').forEach(element => {
-        observer.observe(element);
+      // Position the glow bubble
+      bubble.style.left = `${x}px`;
+      bubble.style.top = `${y}px`;
+      bubble.style.opacity = 1; // Make it visible
     });
-});
 
-// JavaScript for Contact Form (frontend only - requires backend for email)
-document.addEventListener('DOMContentLoaded', () => {
+    card.addEventListener('mouseleave', () => {
+      bubble.style.opacity = 0; // Hide it on mouse leave
+    });
+  });
+
+    // Formspree Submission Logic
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
 
@@ -64,16 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Prevent default form submission
 
             formStatus.textContent = 'Sending...';
-            formStatus.style.color = '#fff';
+            formStatus.style.color = '#38bdf8'; // Blue for sending status
 
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
             try {
-                // !!! IMPORTANT: REPLACE 'YOUR_FORM_SUBMISSION_ENDPOINT' with your actual endpoint !!!
-                // Examples: Formspree (https://formspree.io/), Netlify Forms, Vercel Forms, or your own backend.
-                const response = await fetch('YOUR_FORM_SUBMISSION_ENDPOINT', {
+                // Replace 'YOUR_FORM_SUBMISSION_ENDPOINT' with your actual Formspree form URL
+                // Example: https://formspree.io/f/your_form_hash (from your Formspree dashboard)
+                const response = await fetch('https://formspree.io/f/mqkvnwno', { // <-- Make sure this is YOUR Formspree endpoint
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -84,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     formStatus.textContent = 'Message sent successfully! Thank you.';
-                    formStatus.style.color = '#00eaff'; // Green for success
+                    formStatus.style.color = '#00eaff'; // Neon blue for success
                     contactForm.reset(); // Clear the form
                 } else {
                     const errorData = await response.json();
@@ -93,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 formStatus.textContent = `An error occurred: ${error.message}`;
-                formStatus.style.color = '#ff4d4d';
+                formStatus.style.color = '#ff4d4d'; // Red for error
             }
         });
     }

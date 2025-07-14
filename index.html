@@ -12,10 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
+  </head>
 <body>
   <nav>
     <a href="#home">Home</a>
@@ -31,7 +29,7 @@
 
   <header id="home" class="glass-section">
     <div class="container">
-      <img src="images/profile.jpg" alt="Jayson Sahagun" class="profile-pic">
+      <img src="images/profile.jpg" alt="Jayson Sahagun" class="profile-pic" data-aos="zoom-in" data-aos-duration="1000">
       <h1 class="neon-text" data-aos="fade-up">Jayson G. Sahagun</h1>
       <p data-aos="fade-up" data-aos-delay="200">Aspiring Millionare | SHS Student</p>
       <button class="neon-button" data-aos="fade-up" data-aos-delay="400">
@@ -44,18 +42,20 @@
     <h2>My Projects</h2>
     <div class="project-grid">
       <div class="project-card glass-card" data-aos="fade-up">
-        <img src="images/project 1.png" alt="Project 1 Screenshot"> <h3>First Website Developed 2016</h3>
+        <img src="images/project 1.png" alt="Project 1 Screenshot">
+        <h3>First Website Developed 2016</h3>
         <p class="tech-stack">HTML | CSS</p>
         <p>Our first website developed when we were Grade 6</p>
         <div class="project-links">
-          <a href="project 1/Home.html" target="_blank" class="neon-button project-button">Live Demo</a>
+          <a href="project 1 web/Home.html" target="_blank" class="neon-button project-button">Live Demo</a>
         </div>
       </div>
 
       <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="200">
-        <img src="https://via.placeholder.com/400x250?text=Project+2" alt="Project 2 Screenshot"> <h3>Dambird</h3>
+        <img src="https://via.placeholder.com/400x250?text=Project+2" alt="Project 2 Screenshot">
+        <h3>Dambird</h3>
         <p class="tech-stack">Unity | Python | JavaScript</p>
-        <p>First game developed using Unity (2022) - It was deleted but I didn't have any backups.</p>
+        <p>First game developed using Unity (2022)</p>
         <div class="project-links">
           <a href="#" target="_blank" class="neon-button project-button">Live Demo</a>
           <a href="#" target="_blank" class="neon-button project-button">GitHub Repo</a>
@@ -80,6 +80,8 @@
     <div class="container" data-aos="fade-up">
       <h2>Skills</h2>
       <div class="skills-grid">
+        <div class="glass-card skill-item" data-aos="fade-up" data-aos-delay="100">
+            <h3>Mid-level Programming</h3>
         </div>
         <div class="glass-card skill-item" data-aos="fade-up" data-aos-delay="200">
             <h3>Robotics Enthusiast</h3>
@@ -213,12 +215,35 @@
     </div>
   </footer>
 
-  <script src="js/fade.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     AOS.init({
       once: true, // Animations only happen once
       duration: 1000, // Animation duration
       easing: 'ease-out-cubic', // Easing function
+    });
+    lucide.createIcons(); // Initialize Lucide icons after they are loaded
+  </script>
+
+  <script src="js/fade.js"></script>
+
+  <script>
+    window.history.scrollRestoration = 'manual';
+
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0); // Scroll to top on refresh/navigate away
+    };
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("scrollY", window.scrollY); // Save scroll position
+    });
+
+    window.addEventListener("load", () => {
+      const scrollY = localStorage.getItem("scrollY");
+      if (scrollY !== null) {
+        window.scrollTo(0, parseInt(scrollY)); // Restore scroll position on load
+      }
     });
   </script>
 

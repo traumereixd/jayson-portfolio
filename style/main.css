@@ -1,44 +1,83 @@
-/* Basic Reset & Font Setup */
+/* Universal Box-Sizing and Smooth Scroll */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Space Grotesk', sans-serif;
-  scroll-behavior: smooth;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a; /* Dark background */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #38bdf8; /* Neon blue thumb */
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0ea5e9; /* Lighter blue on hover */
+}
+
+/* Custom Text Selection */
+::selection {
+    background-color: #00eaff; /* Neon blue highlight */
+    color: #020617; /* Dark text on highlight */
+}
+
+/* Body and Background Effects */
 body {
-  overflow-x: hidden; /* Prevent horizontal scroll from animations */
-  background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%); /* Original background */
-  color: #f8fafc; /* Light text for dark background */
+  overflow-x: hidden;
+  background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%);
+  color: #f8fafc;
   line-height: 1.6;
+  position: relative; /* Needed for ::before pseudo-element */
+  min-height: 100vh; /* Ensure body takes full viewport height for background */
 }
 
-/* Typography & Links */
-h1, h2, h3 {
-  font-family: 'Orbitron', sans-serif; /* Use Orbitron for headings */
+/* Animated background overlay for extra spice */
+body::before {
+    content: '';
+    position: fixed; /* Stays in place when scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" opacity="0.1"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" /></svg>');
+    background-size: cover;
+    mix-blend-mode: overlay; /* Blends with existing background */
+    pointer-events: none; /* Allows clicks to pass through */
+    opacity: 0.05; /* Very subtle */
+    animation: background-pan 60s linear infinite; /* Slow, continuous movement */
+    z-index: -1; /* Keep it behind content */
 }
 
-h2 {
-  font-size: 2rem;
-  color: #38bdf8; /* Accent color */
-  margin-bottom: 1.5rem; /* Increased space below headings */
-  border-bottom: 2px solid #334155;
-  padding-bottom: 0.5rem;
-  display: flex; /* For Lucide icons */
-  align-items: center;
-  gap: 0.5rem;
+@keyframes background-pan {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
 }
 
+/* General Link Styling */
 a {
-  color: #38bdf8;
+  color: #38bdf8; /* Default neon blue */
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, text-shadow 0.3s ease, border-bottom 0.3s ease;
 }
 
 a:hover {
-  color: #0ea5e9; /* Slightly darker accent on hover */
-  text-decoration: underline;
+  color: #00eaff; /* Brighter neon on hover */
+  text-shadow: 0 0 5px #00eaff; /* Subtle glow */
+  border-bottom: 1px solid #00eaff; /* Underline on hover */
 }
 
 /* Navigation Bar */
@@ -58,100 +97,180 @@ nav a {
   color: #f8fafc;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: color 0.3s, text-shadow 0.3s;
   padding: 0.5rem 1rem; /* Added padding for better click area */
   border-radius: 5px;
 }
 
-nav a:hover, nav a:focus { /* Added focus state for accessibility */
+nav a:hover {
   color: #38bdf8;
-  background-color: rgba(56, 189, 248, 0.1); /* Subtle background on hover/focus */
+  text-shadow: 0 0 8px #38bdf8, 0 0 15px #38bdf8; /* Stronger glow on nav hover */
+  background: rgba(56, 189, 248, 0.1); /* Subtle background highlight */
 }
 
-/* Main Layout Containers */
-.container {
-  max-width: 900px; /* Consistent content width */
-  margin: 0 auto; /* Center content */
-  padding: 2rem;
+/* Header Section (Home) */
+header {
+  padding: 6rem 2rem 4rem;
   text-align: center;
+  /* AOS handles animation */
 }
 
-/* Glassmorphism Base Styles */
-.glass-section {
-    background: rgba(255, 255, 255, 0.08); /* Slightly more transparent */
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 30px; /* Consistent padding for sections */
-    margin: 40px auto; /* Vertical spacing and centering */
-    max-width: 1000px; /* Max width for sections */
-    box-sizing: border-box; /* Include padding in max-width */
+header h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.05); /* Slightly more transparent than section */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px); /* Slightly less blur for cards */
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow */
-  padding: 1.5rem; /* Good padding inside cards */
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  position: relative; /* For glow bubble */
-  overflow: hidden; /* To contain glow bubble */
+header p {
+  font-size: 1.25rem;
+  color: #94a3b8;
 }
 
-.glass-card:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  transform: translateY(-5px); /* Subtle lift effect */
-}
-
-/* Profile Picture in Header */
 .profile-pic {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 0 20px #38bdf8; /* Stronger glow */
-  transition: transform 0.3s ease;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 15px #38bdf8;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-pic:hover {
-  transform: scale(1.08); /* More pronounced hover effect */
+  transform: scale(1.08); /* Pop out slightly more */
+  box-shadow: 0 0 25px #00eaff, 0 0 40px rgba(0, 234, 255, 0.5); /* Stronger neon glow */
 }
 
-/* Header Specifics */
-header.glass-section { /* Apply glass-section to header */
-  padding-top: 6rem;
-  padding-bottom: 4rem;
+/* Global Container for content centering */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  /* AOS handles animation, remove fadeIn */
+}
+
+/* Glassmorphism Styles */
+.glass-section {
+    background: rgba(255, 255, 255, 0.05); /* Semi-transparent white background */
+    border-radius: 16px; /* Rounded corners */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Subtle shadow */
+    backdrop-filter: blur(10px); /* The magic! Adjust blur value */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Light border */
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  position: relative; /* For glow bubble */
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  z-index: 1; /* Ensure cards are above body::before if needed */
+}
+
+.glass-card:hover {
+    transform: translateY(-5px); /* Lift slightly on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px #38bdf8; /* Enhanced shadow and subtle glow */
+}
+
+
+.glow-bubble {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #38bdf8aa, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Added transform transition */
+  transform: translate(-50%, -50%) scale(0.8); /* Start smaller */
+  z-index: 0;
+}
+
+.glass-card:hover .glow-bubble {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Grow to full size */
+}
+
+
+/* Section Titles & Content */
+h2 {
+  font-size: 2rem;
+  color: #38bdf8;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #334155;
+  padding-bottom: 0.5rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.05); /* Slightly different transparency for header */
 }
 
-header h1 {
-  font-size: 3.5rem; /* Larger hero text */
-  font-weight: 700;
-  color: #f8fafc; /* White text for neon effect */
+.section-title { /* For icon + title */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the icon and title */
+  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-header p {
-  font-size: 1.35rem; /* Slightly larger subtitle */
-  color: #cbd5e1;
+ul {
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
 }
 
-/* Neon Glow Effects */
+ul li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem; /* Indent for custom bullet if needed */
+  position: relative;
+}
+/* Optional: Custom bullet points */
+/* ul li::before {
+    content: '•';
+    color: #38bdf8;
+    position: absolute;
+    left: 0;
+} */
+
+
+/* Resume Button */
+.resume-button {
+  min-height: 44px; /* recommended for finger taps */
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #38bdf8;
+  color: #0f172a;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.resume-button:hover {
+  background: #0ea5e9;
+  box-shadow: 0 0 15px #0ea5e9, 0 0 30px rgba(14, 165, 233, 0.5);
+}
+
+/* Neon Text & Buttons */
 .neon-text {
     color: #fff;
     text-shadow:
         0 0 5px #00eaff,
-        0 0 15px #00eaff,
-        0 0 30px #00c8ff,
-        0 0 60px #00c8ff,
-        0 0 100px #00c8ff;
-    animation: neon-flicker 1.8s ease-in-out infinite alternate; /* Slower flicker */
+        0 0 10px #00eaff,
+        0 0 20px #00eaff,
+        0 0 40px #00c8ff,
+        0 0 80px #00c8ff;
+    font-family: 'Orbitron', sans-serif;
+    animation: neon-flicker 1.5s ease-in-out infinite alternate;
 }
 
 .neon-button {
@@ -163,49 +282,35 @@ header p {
     border-radius: 8px;
     cursor: pointer;
     box-shadow:
-        0 0 8px #00eaff,
-        0 0 25px #00eaff; /* More pronounced initial glow */
+        0 0 5px #00eaff,
+        0 0 10px #00eaff,
+        0 0 20px #00eaff;
     transition: all 0.3s ease;
-    margin-top: 2rem; /* Space below header text */
-    display: inline-block; /* For the link within */
-}
-
-.neon-button a { /* Style the link inside the button */
-    color: inherit; /* Inherit color from button */
-    text-decoration: none;
-    font-weight: bold;
 }
 
 .neon-button:hover {
     background: #00eaff;
     color: #000;
     box-shadow:
-        0 0 15px #00eaff,
-        0 0 60px #00eaff,
-        0 0 120px #00eaff; /* Brighter glow on hover */
+        0 0 10px #00eaff,
+        0 0 40px #00eaff,
+        0 0 80px #00eaff;
 }
 
-/* Keyframes for subtle neon flicker */
-@keyframes neon-flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.92; } /* Even subtler flicker */
-}
-
-/* Project Section & Cards */
+/* Project Section and Cards */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     padding: 20px;
-    justify-content: center; /* Center cards if they don't fill the row */
 }
 
 .project-card {
     text-align: center;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 25px; /* Consistent padding */
 }
 
 .project-card img {
@@ -219,7 +324,6 @@ header p {
 .project-card h3 {
     color: #fff;
     margin-bottom: 10px;
-    font-size: 1.4em;
 }
 
 .project-card .tech-stack {
@@ -245,65 +349,81 @@ header p {
 .project-button {
     text-decoration: none;
     display: inline-block;
-    min-width: 120px; /* Ensure buttons have minimum width */
 }
 
-/* Specific Grid Layouts for new glass-card items */
-.skills-grid, .education-grid, .experience-grid, .achievements-grid, .seminars-grid {
+/* General Grids for lists (Skills, Education, etc.) */
+.skills-grid,
+.education-grid,
+.experience-grid,
+.achievements-grid,
+.seminars-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust min-width as needed */
     gap: 20px;
-    padding: 10px;
-    justify-content: center;
+    padding: 10px 0;
 }
 
-.skill-item, .education-item, .experience-item, .achievement-item, .seminar-item {
-    min-height: 120px; /* Ensure a consistent minimum height for cards */
-    display: flex;
+.skill-item,
+.education-item,
+.experience-item,
+.achievement-item,
+.seminar-item {
+    /* These inherit .glass-card styles */
+    display: flex; /* For vertical centering of content */
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* Inherits .glass-card styles */
+    align-items: flex-start; /* Align text to start */
+    text-align: left;
+    height: 100%; /* Ensure cards in a row have similar height */
 }
-.skill-item h3, .education-item h3, .experience-item h3, .achievement-item h3, .seminar-item h3 {
-    margin-bottom: 0.5em; /* Space between title and paragraph in these cards */
+.skill-item h3,
+.education-item h3,
+.experience-item h3,
+.achievement-item h3,
+.seminar-item h3 {
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-size: 1.15em;
 }
-.skill-item p, .education-item p, .experience-item p, .achievement-item p, .seminar-item p {
-    font-size: 0.9em;
-    color: #cbd5e1;
+.education-item p,
+.experience-item p,
+.achievement-item p,
+.seminar-item p {
+    color: #b0b0b0;
+    font-size: 0.95em;
+    margin-bottom: 0;
+}
+
+
+/* Keyframes for subtle neon flicker */
+@keyframes neon-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.95; } /* Subtle flicker */
+}
+
+/* Animate On Scroll (AOS) integration */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.aos-animate { /* AOS automatically adds this class */
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
-/* General Section Styles (for AOS integration) */
-section {
-  margin: 4rem auto; /* Consistent top/bottom margin, and auto for centering */
-  opacity: 0;
-  transform: translateY(30px); /* Slightly less vertical initial transform */
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-section.is-visible { /* Class added by IntersectionObserver */
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Contact Form Specifics */
+/* Contact Form */
 .contact-form {
     max-width: 500px;
-    margin: 30px auto 0; /* Space below contact details, center form */
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    text-align: left; /* Align form labels/inputs to left */
 }
 
 .contact-form .form-group {
     margin-bottom: 15px;
+    text-align: left;
 }
 
 .contact-form label {
@@ -317,7 +437,7 @@ section.is-visible { /* Class added by IntersectionObserver */
 .contact-form input[type="email"],
 .contact-form textarea {
     width: 100%;
-    padding: 12px; /* Increased padding for inputs */
+    padding: 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
@@ -334,12 +454,6 @@ section.is-visible { /* Class added by IntersectionObserver */
     box-shadow: 0 0 8px rgba(0, 234, 255, 0.6);
 }
 
-.contact-form button.neon-button {
-    width: 100%; /* Make submit button full width */
-    margin-top: 20px;
-    text-align: center;
-}
-
 /* Footer */
 footer {
   background: #0f172a;
@@ -347,39 +461,62 @@ footer {
   padding: 2rem;
   font-size: 0.9rem;
   color: #94a3b8;
-  margin-top: 4rem; /* Space above footer */
 }
 
-/* Responsive Adjustments */
+
+/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
+  header {
+    padding: 4rem 1rem 2rem;
+  }
   header h1 {
     font-size: 2.5rem;
   }
   header p {
     font-size: 1.1rem;
   }
+  .container {
+    padding: 1.5rem;
+  }
+  .glass-section {
+    margin: 20px auto;
+    padding: 20px;
+  }
+  .project-grid,
+  .skills-grid,
+  .education-grid,
+  .experience-grid,
+  .achievements-grid,
+  .seminars-grid {
+    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    gap: 20px;
+  }
+  .glass-card {
+    margin: 1rem auto;
+    width: auto; /* Allow cards to take full width of container */
+  }
+  .contact-form {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
   nav {
     flex-wrap: wrap;
     gap: 1rem;
-    padding: 0.8rem;
+    padding: 0.5rem;
+    justify-content: space-around;
   }
   nav a {
-    font-size: 0.95rem;
-  }
-  .glass-section {
-    padding: 20px;
-    margin: 30px auto;
-  }
-  .project-grid, .skills-grid, .education-grid, .experience-grid, .achievements-grid, .seminars-grid {
-    grid-template-columns: 1fr; /* Stack columns on small screens */
-    gap: 20px;
-  }
-  .project-card, .glass-card {
-    width: auto; /* Allow cards to take full width */
-    margin: 10px auto;
+    font-size: 0.9rem;
+    padding: 0.5rem;
   }
   h2 {
     font-size: 1.8rem;
+  }
+  .resume-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -390,38 +527,20 @@ footer {
   header p {
     font-size: 1rem;
   }
-  nav {
-    gap: 0.5rem;
-  }
-  nav a {
-    font-size: 0.85rem;
-    padding: 0.3rem 0.6rem;
-  }
-  .glass-section {
-    padding: 15px;
-    margin: 20px auto;
-  }
   h2 {
     font-size: 1.5rem;
   }
+  .project-card,
+  .glass-card {
+    padding: 1rem;
+  }
+  .project-links {
+    flex-direction: column;
+    gap: 10px;
+  }
   .neon-button {
-    padding: 10px 20px;
+    width: 100%; /* Full width buttons on very small screens */
+    padding: 10px;
     font-size: 1em;
   }
-}
-
-/* Mouse Glow Bubble (from fade.js) */
-.glow-bubble {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 250px; /* Adjusted size */
-  height: 250px;
-  background: radial-gradient(circle, #38bdf8aa, transparent 70%); /* Accent color */
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.1s linear; /* Fast transform for smooth follow */
-  transform: translate(-50%, -50%);
-  z-index: 0; /* Behind content */
 }
