@@ -214,6 +214,17 @@ header {
   text-align: center;
 }
 
+/* IMPORTANT: Ensure the header's container is set up for centering */
+header .container {
+    display: flex; /* Make the container a flex container */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Centers items horizontally within the flex container */
+    justify-content: center; /* Centers items vertically (if space allows) */
+    max-width: 900px; /* Keep your existing max-width */
+    margin: 0 auto; /* Center the container itself */
+    padding: 2rem; /* Keep your existing padding */
+}
+
 header h1 {
   font-size: 3rem;
   font-weight: 600;
@@ -225,14 +236,19 @@ header p {
   color: #94a3b8;
 }
 
+/* Profile Picture Styling - MODIFIED FOR CENTERING */
 .profile-pic {
-  width: 150px;
-  height: 150px;
+  width: 150px; /* Your desired size for desktop */
+  height: 150px; /* Your desired size for desktop */
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
   box-shadow: 0 0 15px #38bdf8;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Added for robust centering */
+  display: block; /* Ensures it behaves as a block element */
+  margin-left: auto; /* Centers horizontally */
+  margin-right: auto; /* Centers horizontally */
 }
 
 .profile-pic:hover {
@@ -619,14 +635,14 @@ footer {
     padding: 4rem 1rem 2rem;
   }
 
-  /* Inside @media (max-width: 768px) { ... } */
-header .container {
+  /* Ensure the header's container is set up for centering on mobile too */
+  header .container {
     display: flex; /* Make the container a flex container */
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally within the flex container */
     justify-content: center; /* Center items vertically (if space allows) */
     /* Keep your existing padding: 30px 20px; here */
-}
+  }
 
   header h1 {
     font-size: 2.5rem;
@@ -656,6 +672,13 @@ header .container {
   }
   .contact-form {
     padding: 15px;
+  }
+
+  /* Profile Picture on Mobile */
+  .profile-pic {
+    width: 150px; /* Smaller size for mobile */
+    height: 150px;
+    /* margin: 0 auto 1.5rem auto; - Already handled by parent flexbox and display: block; margin: auto; */
   }
 }
 

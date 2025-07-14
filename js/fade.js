@@ -356,29 +356,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// === NEW: Hamburger Menu Logic ===
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (hamburgerMenu && navLinks) {
-        hamburgerMenu.addEventListener('click', () => {
-            hamburgerMenu.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            // Toggle body overflow to prevent scrolling when menu is open
-            document.body.classList.toggle('no-scroll');
-        });
-
-        // Close menu when a navigation link is clicked
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburgerMenu.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            });
-        });
-    }
-
-    // ... (Your existing DOMContentLoaded code will be here) ...
-    // Make sure this new code for hamburger is inside or after your existing DOMContentLoaded stuff
-});
