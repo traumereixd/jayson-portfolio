@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Jy's Portfolio</title>
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jayson G. Sahagun | Portfolio</title>
@@ -15,6 +17,19 @@
 
   </head>
 <body>
+  <div id="welcome-popup-overlay">
+    <div id="welcome-popup-content" class="glass-card">
+      <h2 class="neon-text">Welcome to My Portfolio</h2>
+      <p>This site features background music and interactive elements. Click 'Enter' to proceed!</p>
+      <button id="popupPlayButton" class="neon-button">Enter</button>
+    </div>
+  </div>
+
+  <div class="animated-grid-background"></div> 
+  <div class="animated-grid-background"></div>
+<div class="glowing-blob blob-1"></div>
+<div class="glowing-blob blob-2"></div>
+<div class="glowing-blob blob-3"></div>
   <nav>
     <a href="#home">Home</a>
     <a href="#projects">Projects</a>
@@ -30,15 +45,13 @@
   <header id="home" class="glass-section">
     <div class="container">
       <img src="images/profile.jpg" alt="Jayson Sahagun" class="profile-pic" data-aos="zoom-in" data-aos-duration="1000">
-      <h1 class="neon-text" data-aos="fade-up">Jayson G. Sahagun</h1>
-      <p data-aos="fade-up" data-aos-delay="200">Aspiring Millionare | SHS Student</p>
-      <button class="neon-button" data-aos="fade-up" data-aos-delay="400">
+      <h1 class="neon-text glitch-text" data-glitch-text="Jayson G. Sahagun" data-aos="fade-up">Jayson G. Sahagun</h1> <p id="typewriter-text" data-aos="fade-up" data-aos-delay="200"></p> <button class="neon-button" data-aos="fade-up" data-aos-delay="400">
         <a class="resume-button" href="resume.pdf" download>Download Resume</a>
       </button>
     </div>
   </header>
 
-  <section id="projects" class="glass-section animate-on-scroll">
+  <section id="projects" class="glass-section">
     <h2>My Projects</h2>
     <div class="project-grid">
       <div class="project-card glass-card" data-aos="fade-up">
@@ -64,7 +77,7 @@
       </div>
   </section>
 
-  <section id="about" class="glass-section animate-on-scroll">
+  <section id="about" class="glass-section">
     <div class="container" data-aos="fade-up">
       <h2 class="section-title">
         <i data-lucide="user" style="width: 24px; height: 24px;"></i>
@@ -76,13 +89,10 @@
     </div>
   </section>
 
-  <section id="skills" class="glass-section animate-on-scroll">
+  <section id="skills" class="glass-section">
     <div class="container" data-aos="fade-up">
       <h2>Skills</h2>
       <div class="skills-grid">
-        <div class="glass-card skill-item" data-aos="fade-up" data-aos-delay="100">
-            <h3>Mid-level Programming</h3>
-        </div>
         <div class="glass-card skill-item" data-aos="fade-up" data-aos-delay="200">
             <h3>Robotics Enthusiast</h3>
         </div>
@@ -105,10 +115,14 @@
     </div>
   </section>
 
-  <section id="education" class="glass-section animate-on-scroll">
+  <section id="education" class="glass-section">
     <div class="container" data-aos="fade-up">
       <h2>Education</h2>
       <div class="education-grid">
+        <div class="glass-card education-item" data-aos="fade-up" data-aos-delay="100">
+            <h3>University of the Philippines Diliman</h3>
+            <p>College (2026–2030) <br> SUMMA CUM LAUDE </br> <br> BAKA LANG NAMAN </br></p>
+        </div>
         <div class="glass-card education-item" data-aos="fade-up" data-aos-delay="100">
             <h3>Lyceum of Alabang</h3>
             <p>Senior High School (2024–2026)</p>
@@ -125,7 +139,7 @@
     </div>
   </section>
 
-  <section id="experience" class="glass-section animate-on-scroll">
+  <section id="experience" class="glass-section">
     <div class="container" data-aos="fade-up">
       <h2>Experience</h2>
       <div class="experience-grid">
@@ -137,7 +151,7 @@
     </div>
   </section>
 
-  <section id="achievements" class="glass-section animate-on-scroll">
+  <section id="achievements" class="glass-section">
     <div class="container" data-aos="fade-up">
       <h2>Achievements</h2>
       <div class="achievements-grid">
@@ -168,7 +182,7 @@
     </div>
   </section>
 
-  <section id="seminars" class="glass-section animate-on-scroll">
+  <section id="seminars" class="glass-section">
     <div class="container" data-aos="fade-up">
       <h2>Seminars Attended</h2>
       <div class="seminars-grid">
@@ -184,8 +198,7 @@
     </div>
   </section>
 
-  <section id="contact" class="glass-section animate-on-scroll">
-    <div class="container" data-aos="fade-up">
+  <section id="contact" class="glass-section"> <div class="container" data-aos="fade-up">
       <h2>Contact & Get in Touch</h2>
       <p>Email: <a href="mailto:jysnshgn@gmail.com">jysnshgn@gmail.com</a></p>
       <p>Phone: <a href="tel:+639687336476">+63 9687336476</a></p>
@@ -215,15 +228,30 @@
     </div>
   </footer>
 
+  <audio id="backgroundMusic" loop>
+      <source src="audio/your_music_file.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
+
+  <div id="musicControlsContainer">
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+
+    <button id="musicToggleButton">
+      &#9658;
+    </button>
+  </div>
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
+    // Initialize AOS first
     AOS.init({
       once: true, // Animations only happen once
       duration: 1000, // Animation duration
       easing: 'ease-out-cubic', // Easing function
     });
-    lucide.createIcons(); // Initialize Lucide icons after they are loaded
+    // Initialize Lucide icons after AOS
+    lucide.createIcons();
   </script>
 
   <script src="js/fade.js"></script>

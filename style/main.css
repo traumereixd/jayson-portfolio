@@ -41,31 +41,62 @@ body {
   background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%);
   color: #f8fafc;
   line-height: 1.6;
-  position: relative; /* Needed for ::before pseudo-element */
+  position: relative; /* Needed for pseudo-elements and animated grid */
   min-height: 100vh; /* Ensure body takes full viewport height for background */
+  padding-top: 80px; /* Adjust based on your nav's height */
+  scrollbar-color: #0ea5e9 #0f172a; /* Firefox scrollbar thumb and track */
+  scrollbar-width: thin; /* Firefox scrollbar width */
 }
 
-/* Animated background overlay for extra spice */
+/* Animated background overlay (subtle noise) */
 body::before {
     content: '';
-    position: fixed; /* Stays in place when scrolling */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" opacity="0.1"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" /></svg>');
     background-size: cover;
-    mix-blend-mode: overlay; /* Blends with existing background */
-    pointer-events: none; /* Allows clicks to pass through */
-    opacity: 0.05; /* Very subtle */
-    animation: background-pan 60s linear infinite; /* Slow, continuous movement */
-    z-index: -1; /* Keep it behind content */
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.05;
+    animation: background-pan 60s linear infinite;
+    z-index: -1;
 }
 
 @keyframes background-pan {
     0% { background-position: 0% 0%; }
     100% { background-position: 100% 100%; }
 }
+
+/* NEW: Animated Grid Background */
+.animated-grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(to right, rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px; /* Adjust grid size */
+    animation: grid-pulse 8s infinite alternate, grid-pan 30s linear infinite;
+    pointer-events: none;
+    z-index: -2; /* Ensure it's behind other background effects */
+    opacity: 0.1; /* Very subtle */
+}
+
+@keyframes grid-pulse {
+    0% { background-color: rgba(56, 189, 248, 0.05); }
+    100% { background-color: transparent; }
+}
+
+@keyframes grid-pan {
+    0% { background-position: 0 0; }
+    100% { background-position: 100% 100%; }
+}
+
 
 /* General Link Styling */
 a {
@@ -80,39 +111,64 @@ a:hover {
   border-bottom: 1px solid #00eaff; /* Underline on hover */
 }
 
-/* Navigation Bar */
+/* === UPDATED: Navigation Bar Redesign === */
 nav {
-  background: #0f172a;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: fixed; /* Keep it at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    background-color: rgba(15, 23, 42, 0.7); /* Transparent dark blue background */
+    backdrop-filter: blur(15px); /* Glassmorphism effect */
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    border-bottom: 1px solid rgba(56, 189, 248, 0.3); /* Subtle neon border */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    z-index: 1000; /* Ensure it's above content but below pop-up/music controls */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 nav a {
-  color: #f8fafc;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s, text-shadow 0.3s;
-  padding: 0.5rem 1rem; /* Added padding for better click area */
-  border-radius: 5px;
+    color: #e2e8f0; /* Light text color */
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    margin: 0 10px;
+    position: relative;
+    overflow: hidden; /* For the subtle underline effect */
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.2s ease;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #00eaff; /* Neon indicator color */
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
 }
 
 nav a:hover {
-  color: #38bdf8;
-  text-shadow: 0 0 8px #38bdf8, 0 0 15px #38bdf8; /* Stronger glow on nav hover */
-  background: rgba(56, 189, 248, 0.1); /* Subtle background highlight */
+    color: #00eaff; /* Neon hover text color */
+    text-shadow: 0 0 8px #00eaff, 0 0 15px rgba(0, 234, 255, 0.5); /* Neon text glow */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+nav a:hover::before {
+    width: 100%; /* Expand indicator on hover */
 }
 
 /* Header Section (Home) */
 header {
   padding: 6rem 2rem 4rem;
   text-align: center;
-  /* AOS handles animation */
 }
 
 header h1 {
@@ -146,7 +202,6 @@ header p {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
-  /* AOS handles animation, remove fadeIn */
 }
 
 /* Glassmorphism Styles */
@@ -180,7 +235,6 @@ header p {
     transform: translateY(-5px); /* Lift slightly on hover */
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px #38bdf8; /* Enhanced shadow and subtle glow */
 }
-
 
 .glow-bubble {
   position: absolute;
@@ -231,14 +285,6 @@ ul li {
   padding-left: 1.5rem; /* Indent for custom bullet if needed */
   position: relative;
 }
-/* Optional: Custom bullet points */
-/* ul li::before {
-    content: '•';
-    color: #38bdf8;
-    position: absolute;
-    left: 0;
-} */
-
 
 /* Resume Button */
 .resume-button {
@@ -296,6 +342,77 @@ ul li {
         0 0 40px #00eaff,
         0 0 80px #00eaff;
 }
+
+/* NEW: Text Glitch Effect */
+.glitch-text {
+    position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-glitch-text); /* Use the text content itself */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #020617; /* Match body background */
+    overflow: hidden;
+    color: #fff;
+    text-shadow:
+        0 0 5px #00eaff,
+        0 0 10px #00eaff,
+        0 0 20px #00eaff;
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1; /* Magenta glitch */
+    animation: glitch-anim-1 2s infinite alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #00eaff; /* Cyan glitch */
+    animation: glitch-anim-2 2s infinite alternate-reverse;
+}
+
+/* Hide original text when glitch is active */
+.glitch-text {
+    opacity: 1; /* Default state */
+    animation: glitch-opacity 2s infinite alternate-reverse;
+}
+
+@keyframes glitch-opacity {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.8; } /* Subtle flicker */
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 80px, 0); }
+    10% { clip: rect(10px, 9999px, 40px, 0); }
+    20% { clip: rect(70px, 9999px, 120px, 0); }
+    30% { clip: rect(30px, 9999px, 90px, 0); }
+    40% { clip: rect(90px, 9999px, 140px, 0); }
+    50% { clip: rect(50px, 9999px, 110px, 0); }
+    60% { clip: rect(0px, 9999px, 70px, 0); }
+    70% { clip: rect(100px, 9999px, 150px, 0); }
+    80% { clip: rect(40px, 9999px, 100px, 0); }
+    90% { clip: rect(60px, 9999px, 130px, 0); }
+    100% { clip: rect(10px, 9999px, 80px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 50px, 0); }
+    15% { clip: rect(80px, 9999px, 130px, 0); }
+    30% { clip: rect(20px, 9999px, 70px, 0); }
+    45% { clip: rect(60px, 9999px, 110px, 0); }
+    60% { clip: rect(0px, 9999px, 40px, 0); }
+    75% { clip: rect(90px, 9999px, 140px, 0); }
+    90% { clip: rect(30px, 9999px, 80px, 0); }
+    100% { clip: rect(50px, 9999px, 100px, 0); }
+}
+
 
 /* Project Section and Cards */
 .project-grid {
@@ -399,18 +516,6 @@ ul li {
 @keyframes neon-flicker {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.95; } /* Subtle flicker */
-}
-
-/* Animate On Scroll (AOS) integration */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.animate-on-scroll.aos-animate { /* AOS automatically adds this class */
-    opacity: 1;
-    transform: translateY(0);
 }
 
 
@@ -518,6 +623,17 @@ footer {
     padding: 0.6rem 1.2rem;
     font-size: 0.95rem;
   }
+  /* Popup adjustments for smaller screens */
+  #welcome-popup-content {
+      width: 90%;
+      padding: 20px;
+  }
+  #welcome-popup-content h2 {
+      font-size: 1.8rem;
+  }
+  #welcome-popup-content p {
+      font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -543,4 +659,272 @@ footer {
     padding: 10px;
     font-size: 1em;
   }
+}
+
+/* NEW: Styles for the Welcome Pop-up */
+#welcome-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Ensure it's on top of everything */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#welcome-popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#welcome-popup-content {
+    background-color: #0f172a; /* Dark background */
+    color: #f8fafc;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 234, 255, 0.4); /* Neon glow effect */
+    max-width: 500px;
+    width: 80%; /* Responsive width */
+    transform: scale(0.9); /* Start slightly smaller */
+    transition: transform 0.4s ease;
+}
+
+#welcome-popup-overlay.show #welcome-popup-content {
+    transform: scale(1); /* Scale up when shown */
+}
+
+#welcome-popup-content h2 {
+    font-size: 2.5rem;
+    color: #00eaff; /* Neon blue */
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px #00eaff;
+    border-bottom: none; /* Remove section title border */
+    padding-bottom: 0;
+}
+
+#welcome-popup-content p {
+    font-size: 1.1em;
+    margin-bottom: 2rem;
+    color: #b0b0b0;
+}
+
+#welcome-popup-content .neon-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+}
+
+/* NEW: Music Controls Container Styling */
+#musicControlsContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between slider and button */
+    z-index: 1001;
+    background-color: rgba(15, 23, 42, 0.7); /* Slightly transparent dark background */
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#musicControlsContainer:hover {
+    background-color: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.9); /* Brighter hover glow */
+}
+
+/* Style for the Play/Pause Button (now without inline styles) */
+#musicToggleButton {
+    background-color: #38bdf8;
+    color: #020617;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+#musicToggleButton:hover {
+    background-color: #0ea5e9;
+    box-shadow: 0 0 15px #0ea5e9, 0 0 25px rgba(14, 165, 233, 0.5);
+    transform: scale(1.05);
+}
+
+#musicToggleButton:active {
+    transform: scale(0.95);
+}
+
+/* Style for the Volume Slider */
+#volumeSlider {
+    width: 100px; /* Adjust width as needed */
+    -webkit-appearance: none; /* Remove default styling for Chrome/Safari */
+    appearance: none;
+    height: 8px; /* Track height */
+    background: #334155; /* Dark grey track */
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Slider thumb for Webkit (Chrome, Safari) */
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    border-radius: 50%;
+    background: #00eaff; /* Neon blue thumb */
+    cursor: pointer;
+    box-shadow: 0 0 5px #00eaff;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+#volumeSlider::-webkit-slider-thumb:hover {
+    background: #00c8ff; /* Lighter neon on hover */
+    box-shadow: 0 0 10px #00c8ff;
+    transform: scale(1.1);
+}
+
+/* Slider thumb for Firefox */
+#volumeSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00eaff;
+    cursor: pointer;
+    box-shadow: 0 0 5px #00eaff;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    border: none; /* Remove default border for Firefox */
+}
+
+#volumeSlider::-moz-range-thumb:hover {
+    background: #00c8ff;
+    box-shadow: 0 0 10px #00c8ff;
+    transform: scale(1.1);
+}
+
+/* Slider track for Firefox */
+#volumeSlider::-moz-range-track {
+    background: #334155;
+    border-radius: 4px;
+    height: 8px;
+}
+
+/* Media query for smaller screens: Adjust position/size if necessary */
+@media (max-width: 600px) {
+    #musicControlsContainer {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        gap: 8px;
+    }
+    #musicToggleButton {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+    }
+    #volumeSlider {
+        width: 80px;
+    }
+}
+
+/* === NEW: Glowing Blobs for Background === */
+.glowing-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px); /* Adjust blur for desired softness */
+    opacity: 0.6;
+    animation: blob-animation 20s infinite alternate ease-in-out;
+    z-index: -1; /* Keep them behind content but above the main grid */
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(56, 189, 248, 0.5); /* Neon blue */
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 400px;
+    height: 400px;
+    background: rgba(14, 165, 233, 0.4); /* Slightly darker blue */
+    bottom: 15%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+.blob-3 {
+    width: 350px;
+    height: 350px;
+    background: rgba(0, 234, 255, 0.3); /* Cyan */
+    top: 30%;
+    right: 25%;
+    animation-delay: 10s;
+}
+
+@keyframes blob-animation {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translate(20px, -30px) scale(1.05);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(0, 20px) scale(1.1);
+        opacity: 0.5;
+    }
+    75% {
+        transform: translate(-10px, -10px) scale(0.95);
+        opacity: 0.65;
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+    }
+}
+
+/* Ensure these blobs are above the animated grid but behind sections */
+.animated-grid-background {
+    z-index: -2; /* Make grid the lowest layer */
+}
+
+/* === NEW: Custom Scrollbar for Webkit Browsers (Chrome, Safari, Edge) === */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a; /* Dark background track */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0ea5e9; /* Neon blue thumb */
+    border-radius: 10px;
+    border: 3px solid #0f172a; /* Border around thumb for contrast */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00eaff; /* Lighter neon on hover */
+    box-shadow: 0 0 8px #00eaff;
 }
