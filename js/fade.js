@@ -158,8 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = document.getElementById('message').value;
 
             try {
-                // IMPORTANT: Replace 'https://formspree.io/f/mqkvnwno' with your actual Formspree form URL
-                const response = await fetch('https://formspree.io/f/mqkvnwno', { // <-- VERIFY/UPDATE THIS!
+                const response = await fetch('https://formspree.io/f/mnnzarqj', { // <-- VERIFY/UPDATE THIS!
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
