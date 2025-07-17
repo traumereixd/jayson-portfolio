@@ -346,12 +346,12 @@ ul li {
 .resume-button {
   min-height: 44px; /* recommended for finger taps */
   display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
+  margin-top: 0.05rem;
+  padding: 0.75rem 1rem;
   background: #38bdf8;
   color: #0f172a;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
   transition: background 0.3s, box-shadow 0.3s;
@@ -359,7 +359,7 @@ ul li {
 
 .resume-button:hover {
   background: #0ea5e9;
-  box-shadow: 0 0 15px #0ea5e9, 0 0 30px rgba(14, 165, 233, 0.5);
+  box-shadow: 0 0 5px #0ea5e9, 0 0 5px rgba(14, 165, 233, 0.5);
 }
 
 /* Neon Text & Buttons */
